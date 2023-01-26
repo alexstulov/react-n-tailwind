@@ -1,0 +1,48 @@
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: black;
+  padding-top: 4rem;
+}
+
+button {
+    cursor: pointer
+}
+
+.todo_wrapper {
+    width: 100%;
+  max-width: 230px;
+  padding: 0;
+  font-size: 1rem;
+  color: #585858;
+  list-style: none;
+}
+.todo_item {
+    display: flex;
+    justify-content: space-between;
+    /* width: 100%; */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.todo_item > button {
+  margin: 0 5px;
+}
+
+
+.todo_item__name, 
+.todo_item__actions, {
+    display: flex;
+}
+
+.todo_item__actions {
+    min-width: 60px;
+}
+
+.todo_item__name {
+    justify-content: flex-start
+}

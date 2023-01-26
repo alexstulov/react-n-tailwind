@@ -8,6 +8,7 @@ import Reset from "./components/Reset"
 import "./App.css"
 import Chat from "./components/Chat"
 import TicTacToe from "./modules/tic-tac-toe"
+import Todo from "./components/Todo"
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/tic-tac-toe" element={<TicTacToe />} />
+          <Route path="/todo" element={<Todo />} />
         </Routes>
       </Router>
     </div>
