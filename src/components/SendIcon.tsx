@@ -1,5 +1,7 @@
+import React from "react"
+
 const SendIcon = () => {
-    return <svg
+  return <svg
     className="icon-send hover:text-green-500 hover:text-green-500"
     aria-hidden="true"
     focusable="false"

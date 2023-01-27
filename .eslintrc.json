@@ -31,7 +31,7 @@
     },
     "import/resolver": {
     "node": {
-      "extensions": [".ts", ".tsx"],
+      "extensions": [".ts", ".tsx", ".native.js"],
       "moduleDirectory": ["src", "node_modules"]
     }
   }
