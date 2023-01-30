@@ -9,6 +9,7 @@ import "./App.css"
 import Chat from "./components/Chat"
 import TicTacToe from "./modules/tic-tac-toe"
 import Todo from "./components/Todo"
+import Exercises from "./components/Exercises"
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/chat" element={<Chat />} />
           <Route path="/tic-tac-toe" element={<TicTacToe />} />
           <Route path="/todo" element={<Todo />} />
+          <Route path="/exercises" element={<Exercises />} />
         </Routes>
       </Router>
     </div>
