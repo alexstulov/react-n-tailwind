@@ -8,7 +8,7 @@ import Message from "./Message"
 
 const Chat = () => {
   // return <>the chat</>
-  const [user, loading] = useAuthState(auth)
+  const [user, loading, isLogin] = useAuthState(auth)
   const { messages, sendMessage } = useMessages()
   // const {messages, sendMessage } = useChat()
   // const { user, isLogin} = useAuth()
@@ -16,12 +16,10 @@ const Chat = () => {
   const [msgLength, setMsgLength] = useState(messages.length)
 
   useEffect(() => {
-    console.log("eff")
     if (msgLength !== messages.length) {
       bottom.current?.scrollIntoView({
         behavior: "smooth",
       })
-      console.log("changed")
       setMsgLength(messages.length)
     }
   }, [messages])
@@ -32,6 +30,7 @@ const Chat = () => {
     <>
       <div className="container-sm mt-20">
         {loading && <div>loading...</div>}
+        {!loading && !isLogin && <h2>Sign in to see the chat</h2>}
         {!loading && (
           <div className="mx-5">
             {messages.map((msg: any) => {

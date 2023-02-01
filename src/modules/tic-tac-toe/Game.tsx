@@ -97,7 +97,7 @@ class Game extends React.Component<any, StateT> {
         desc = <strong>{desc}</strong>
       } 
       return (
-        <li key={move}><button onClick={() => this.jumpTo(move)}>{desc}</button></li>
+        <li key={move}><button className="btn" onClick={() => this.jumpTo(move)}>{desc}</button></li>
       )
     })
 
