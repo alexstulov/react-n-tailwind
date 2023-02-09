@@ -46,17 +46,21 @@ class Game extends React.Component<any, StateT> {
     const history = this.state.history.slice(0, this.state.stepNumber + 1)
     const current = history[history.length - 1]
     const squares = current.squares.slice()
-    const {winner} = calculateWinner(squares) || squares[i]
-    
-    if (winner || history.length === 10) {
+    const {winner} = calculateWinner(squares)
+
+    if (winner || squares[i] || history.length === 10) {
       return
     }
+
     squares[i] = this.getSign()
 
     if (!winner && history.length === 9 && !this.alertOnce) {
       this.alertOnce = true
+      const {winner} = calculateWinner(squares)
       setTimeout(() => {
-        alert ("Draw happens!")
+        if (!winner && history.length === 9) {
+          alert ("Draw happens!")
+        }
       }, 100);
     }
 
@@ -92,26 +96,34 @@ class Game extends React.Component<any, StateT> {
     const current = history[this.state.stepNumber]
     const {line, winner} = calculateWinner(current.squares)
     const moves = history.map((step, move) => {
-      let desc = step.coord.length ? <>Go to move #{move}, ({step.coord[0]}, {step.coord[1]})`</> : <>Go to game start</>
+      let desc = step.coord.length ? <>#{move}, ({step.coord[0]}, {step.coord[1]})</> : <>Go to game start</>
       if (move === this.state.stepNumber) {
         desc = <strong>{desc}</strong>
       } 
       return (
-        <li key={move}><button className="btn" onClick={() => this.jumpTo(move)}>{desc}</button></li>
+        <li key={move} className="mb-3"><button className="btn btn-primary" onClick={() => this.jumpTo(move)}>{desc}</button></li>
       )
     })
 
     const status = winner ? `Winner: ${winner}` : `Next player: ${this.getSign()}`
 
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board squares={current.squares} winnerLine={line} onClick={(i: number) => this.handleClick(i)}/>
+      <div className="flex flex-col items-center prose-headings:text-[5rem]">
+        <h1 className="mt-5 w-[600px] text-left">Tic tac toe</h1>
+        <div className="mb-5 w-[600px] text-left text-xl">
+          <span>{status}</span>
         </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <div>Toggle order: <button onClick={() => this.handleOrderClick()}>toggle</button></div>
-          <div>{this.state.movesOrder === "asc" ? moves : moves.reverse()}</div>
+        <div className="border-[20px] border-black">
+          <div className="flex flex-wrap w-[600px]">
+            <Board squares={current.squares} winnerLine={line} onClick={(i: number) => this.handleClick(i)}/>
+          </div>
+        </div>
+        <div className="w-[600px]">
+
+          <div className="my-5 w-[600px] text-left text-xl"><span>Steps chain: <button className="link" onClick={() => this.handleOrderClick()}>toggle {this.state.movesOrder === "asc" ? "▲" : "▼"}</button></span></div>
+          <div className="breadcrumbs">
+            <ul className="flex flex-wrap">{this.state.movesOrder === "asc" ? moves : moves.reverse()}</ul>
+          </div>
         </div>
       </div>
     )
