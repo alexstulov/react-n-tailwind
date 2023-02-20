@@ -15,7 +15,7 @@ const NavigationBar = () => {
   }, [loading, user, navigate])
 
   return (
-    <div className="sticky top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 
+    <div className="sticky top-0 z-30 flex h-20 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 
   bg-base-100 text-base-content">
       <nav className="navbar bg-base-100 w-full">
         <div className="flex flex-1 md:gap-1 lg:gap-2">
@@ -28,9 +28,10 @@ const NavigationBar = () => {
           <li>
             <span>Menu</span>
             <ul className="bg-base-100 p-0">
-              <li><Link to='/app-ideas'>App Ideas</Link></li>
               <li><Link to='/tic-tac-toe'>Tic Tac Toe</Link></li>
+              <li><Link to='/app-ideas'>App Ideas</Link></li>
               <li><Link to='/todo'>Todo</Link></li>
+              <li><Link to='/chat-auth'>Chat</Link></li>
               <li><Link to='/exercises'>Exersices</Link></li>
             </ul>
           </li>
@@ -45,7 +46,7 @@ const NavigationBar = () => {
           </div>
         )}
         {!user && (
-          <Link style={{ color: "gray" }} to="/">
+          <Link style={{ color: "gray" }} to="/chat-auth">
                         Sign in
           </Link>
         )}

@@ -18,7 +18,8 @@ const App = () => {
       <Router>
         <NavigationBar />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<div>Main</div>} />
+          <Route path="chat-auth" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="reset" element={<Reset />} />
           <Route path="dashboard" element={<Dashboard />} />
