@@ -18,8 +18,16 @@ const Bin2Dec = () => {
     setDecimal(dec.toString())
   }
   return <div className="m-4">
-    <input type="text" className="input input-bordered w-1/2 max-w-xs mr-4" name="binary" onChange={binaryInputHandler} value={binary} />
-    <input type="text" className="input input-bordered w-1/2 max-w-xs" name="decimal" value={hasNonDigit ? "Numbers only": decimal} disabled />
+    <div className="form-control w-full mb-4">
+      <label htmlFor="binary" className="label">Binary</label>
+      <input type="text" className=" w-full input input-bordered" name="binary" id="binary" onChange={binaryInputHandler} value={binary} maxLength={1024} placeholder="Enter binary number here..." />
+    </div>
+    <div className="form-control w-full">
+      <label htmlFor="binary" className="label">Decimal</label>
+      <input type="text" className="w-full input input-bordered" name="decimal" value={hasNonDigit ? "Numbers only": binary === "" ? "" : decimal} disabled />
+    </div>
+    
+    
   </div>
 }
 

@@ -15,25 +15,33 @@ const NavigationBar = () => {
   }, [loading, user, navigate])
 
   return (
-    <nav>
-      <div>
-        <h1>
-          <strong>React</strong> Chat App
-        </h1>
-        <nav>
-          <ul>
-            <li><Link to='/app-ideas'>App Ideas</Link></li>
-          </ul>
-        </nav>
+    <div className="sticky top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 
+  bg-base-100 text-base-content">
+      <nav className="navbar bg-base-100 w-full">
+        <div className="flex flex-1 md:gap-1 lg:gap-2">
+          <Link to="/"><h1 className="heading-1 text-primary">
+            <strong>React</strong> & Tailwind
+          </h1></Link>
+        </div>
+        
+        <ul className="menu menu-horizontal bg-base-100 p-0">
+          <li>
+            <span>Menu</span>
+            <ul className="bg-base-100 p-0">
+              <li><Link to='/app-ideas'>App Ideas</Link></li>
+              <li><Link to='/tic-tac-toe'>Tic Tac Toe</Link></li>
+              <li><Link to='/todo'>Todo</Link></li>
+              <li><Link to='/exercises'>Exersices</Link></li>
+            </ul>
+          </li>
+        </ul>
         {user && (
           <div className="login_h">
             <Avatar src={user?.photoURL} />
             <button
               className="text-gray-400 hover:text-white"
               onClick={logout}
-            >
-                            SignOut
-            </button>
+            >SignOut</button>
           </div>
         )}
         {!user && (
@@ -41,8 +49,8 @@ const NavigationBar = () => {
                         Sign in
           </Link>
         )}
-      </div>
-    </nav>
+      </nav>
+    </div>
   )
 }
 
