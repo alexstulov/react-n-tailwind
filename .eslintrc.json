@@ -31,9 +31,10 @@
     },
     "import/resolver": {
     "node": {
-      "extensions": [".ts", ".tsx", ".native.js"],
+      "extensions": [".js", ".jsx", ".ts", ".tsx", ".native.js"],
       "moduleDirectory": ["src", "node_modules"]
     }
   }
-  }
+  },
+  "root": true
 }

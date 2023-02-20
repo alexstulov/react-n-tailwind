@@ -20,6 +20,11 @@ const NavigationBar = () => {
         <h1>
           <strong>React</strong> Chat App
         </h1>
+        <nav>
+          <ul>
+            <li><Link to='/app-ideas'>App Ideas</Link></li>
+          </ul>
+        </nav>
         {user && (
           <div className="login_h">
             <Avatar src={user?.photoURL} />
