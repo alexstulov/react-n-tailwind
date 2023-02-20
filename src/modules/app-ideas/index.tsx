@@ -6,7 +6,7 @@ import BorderRadiusPreviewer from "./BorderRadiusPreviewer"
 const AppIdeas = () => {
   return (
     <>
-      <div>
+      <div data-theme="cyberpunk">
         <p>Here I place apps from <Link to="https://github.com/florinpop17/app-ideas">App Ideas</Link> which I&apos;ve found in Redux tutorial.</p>
         <ul>
           <li><Link to="/app-ideas/bin2dec">Bin2Dec</Link></li>
