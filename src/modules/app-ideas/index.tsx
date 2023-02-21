@@ -5,7 +5,6 @@ import BorderRadiusPreviewer from "./BorderRadiusPreviewer"
 
 const AppIdeas = () => {
   const location = useLocation()
-  console.log(location)
   return (
     <>
       <div data-theme="cyberpunk" className="p-4 h-[calc(100vh-5rem)]">
