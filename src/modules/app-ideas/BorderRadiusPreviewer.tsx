@@ -27,6 +27,7 @@ const RadiusInput = ({handleSwitchUnit, unit, corner}: RadiusInputPropsT) => {
 const BorderRadiusPreviewer = () => {
   const [unit, switchUnit] = useState("px")
   const [showCopyIcon, setShowCopyIcon] = useState(false)
+  const [showToast, setShowToast] = useState(false)
   const handleSwitchUnit = useCallback(() => {
     switch (unit) {
     case "px":
@@ -40,8 +41,17 @@ const BorderRadiusPreviewer = () => {
       break;
     }
   }, [unit])
+
   const all = useSelector((state: StateT) => state.borderRadiusPreviewer)
   const brConfig = `${all.topLeft || 0}${unit} ${all.topRight || 0}${unit} ${all.bottomLeft || 0}${unit} ${all.bottomRight || 0}${unit}`
+
+  const handleCopyClick = useCallback(() => {
+    copyToClipboard(brConfig)
+    setShowToast(true)
+    setTimeout(() => {
+      setShowToast(false)
+    }, 3000);
+  }, [brConfig])
 
   return <div className="flex flex-col mt-4">
     <div className="flex flex-col md:flex-row pb-4">
@@ -56,7 +66,7 @@ const BorderRadiusPreviewer = () => {
         </div>
       </div>
       <div className="flex w-full justify-center">
-        <div className="border-8 border-primary w-full h-30" style={{borderRadius: brConfig}}></div>
+        <div className="border-8 border-primary w-full min-h-30 h-30" style={{borderRadius: brConfig}}></div>
       </div>
     </div>
     <div className="mockup-code p-4 relative" 
@@ -64,7 +74,7 @@ const BorderRadiusPreviewer = () => {
       onFocus={() => setShowCopyIcon(true)} 
       onMouseOut={() => setShowCopyIcon(false)} 
       onBlur={() => setShowCopyIcon(false)}>
-      <button className={`absolute top-2 left-2 ${!showCopyIcon ? "hidden" : ""}`} onClick={() => copyToClipboard(brConfig)}>
+      <button className={`absolute top-2 left-2 ${!showCopyIcon ? "hidden" : ""}`} onClick={() => handleCopyClick()}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
         </svg>
@@ -74,6 +84,11 @@ const BorderRadiusPreviewer = () => {
     border-radius: ${brConfig}
     ...
 }`}</em>
+    </div>
+    <div className={`toast toast-end transition-all ease delay-300 ${!showToast ? "hidden" : ""}`}>
+      <div className="alert alert-info">
+        <span>CSS rule copied to clipboard!</span>
+      </div>
     </div>
   </div>
 }
