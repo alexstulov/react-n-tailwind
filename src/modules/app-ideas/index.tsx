@@ -3,10 +3,13 @@ import { Link, Outlet, Route, Routes, useLocation } from "react-router-dom"
 import Bin2Dec from "./Bin2Dec"
 import BorderRadiusPreviewer from "./BorderRadiusPreviewer"
 
+import { Provider } from "react-redux";
+import store from "./store"
+
 const AppIdeas = () => {
   const location = useLocation()
   return (
-    <>
+    <Provider store={store}>
       <div data-theme="cyberpunk" className="p-4 h-full md:h-[calc(100vh-5rem)]">
         <div className="flex flex-col justify-start text-left">
           <h2 className="heading-2 my-4 p-2 bg-base-300">App Ideas</h2>
@@ -22,7 +25,7 @@ const AppIdeas = () => {
           </Routes>
         </div>
       </div>
-    </>
+    </Provider>
   )
 }
 
