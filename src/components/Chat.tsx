@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 // import {useAuth, useChat} from '../firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
-import { auth, useMessages } from "../firebase"
+import { auth, MessageT, useMessages } from "../firebase"
 
 import SendIcon from "./SendIcon"
 import Message from "./Message"
@@ -33,7 +33,8 @@ const Chat = () => {
         {!loading && !isLogin && <h2>Sign in to see the chat</h2>}
         {!loading && (
           <div className="mx-5">
-            {messages.map((msg: any) => {
+            {messages.map((msg: MessageT) => {
+              console.log(messages)
               return (
                 <Message
                   key={msg.id}

@@ -1,7 +1,7 @@
 import React from "react"
 import { Squares } from "./Game"
 import Square from "./Square"
-type BoardPropsT = {squares: Squares, winnerLine: number[], onClick: any}
+type BoardPropsT = {squares: Squares, winnerLine: number[], onClick: (i: number) => void}
 
 class Board extends React.Component<BoardPropsT> {
   squares = [

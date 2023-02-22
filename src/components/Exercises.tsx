@@ -18,7 +18,7 @@ class SimpleComponent extends React.Component {
 }
 
 class DeveloperTable extends React.Component {
-  constructor(props: any) {
+  constructor(props: object) {
     super(props)
     this.state = {
       checking: false
@@ -46,7 +46,7 @@ const Message = () => {
   const [position, setPosition] = useState({x: "", y: ""})
 
   useCallback(() => {
-    const setFromEvent = (e: any) => setPosition({x: e.clientX, y: e.clientY});
+    const setFromEvent = (e: MouseEvent) => setPosition({x: e.clientX.toString(), y: e.clientY.toString()});
     window.addEventListener("mousemove", setFromEvent)
     // return () => {
     //   window.removeEventListener("mousemove", setFromEvent)
@@ -69,7 +69,7 @@ const Message = () => {
 
 // TODO: learn to run this code correctly
 function AnotherComp() {
-  const [data] = useState<any>({hits: []});
+  const [data] = useState<{hits: {objectID: string, url: string, title: string}[]}>({hits: []});
 
   // useLayoutEffect(async () => {
   //     const result = await axios("http://example.com/api/v1/search?query=react");
@@ -82,16 +82,14 @@ function AnotherComp() {
   // })
 
   return (<ul>
-    {data.hits.map((item: any) => {
-      <li key={item.objectID}> <a href={item.url}>{item.title}</a></li>
-    })}
+    {data.hits.map((item) => <li key={item.objectID}> <a href={item.url}>{item.title}</a></li>)}
   </ul>)
 }
 
 function KeyPress() {
   const [userText, setUserText] = useState("")
 
-  const handleEvents = useCallback((event: any) => {
+  const handleEvents = useCallback((event: KeyboardEvent) => {
     const { key, keyCode } = event;
     if (keyCode === 32 || (keyCode >= 65 && keyCode <= 90)) {
       setUserText(`${userText}${key}`);
@@ -132,7 +130,7 @@ function useWindowSize() {
 
 const LoadingMCQ = () => {
   const [token] = useState(() => { // wow - you can initialize state from function
-    let token = window.localStorage.getItem("access-token");
+    const token = window.localStorage.getItem("access-token");
     return token || "default#-token#"
   })
 

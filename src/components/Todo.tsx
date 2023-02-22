@@ -8,8 +8,8 @@ type TodoT = {
 
 type ListItemPropsT = {
         todo: TodoT,
-        onToggleEdit: Function,
-        onDeleteTask: Function,
+        onToggleEdit: (todo: TodoT) => void,
+        onDeleteTask: (id: number) => void,
 }
 
 type TodoStateT = {

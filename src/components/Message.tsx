@@ -1,11 +1,11 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import AvatarC from "./Avatar"
 
 const Message = (props: {
     name: string
     photoUrl: string
     sender: boolean
-    children?: any
+    children?: ReactNode
 }) => {
   const { name, photoUrl, sender, children } = props
   return (

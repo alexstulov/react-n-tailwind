@@ -51,18 +51,16 @@ const signInWithGoogle = async () => {
         email: user.email,
       })
     }
-  } catch (err: any) {
+  } catch (err) {
     console.error(err)
-    alert(err.message)
   }
 }
 
 const loginWithEmailAndPassword = async (email: string, password: string) => {
   try {
     await signInWithEmailAndPassword(auth, email, password)
-  } catch (err: any) {
+  } catch (err) {
     console.error(err)
-    alert(err.message)
   }
 }
 
@@ -80,9 +78,8 @@ const registerWithEmailAndPassword = async (
       authProvider: "local",
       email,
     })
-  } catch (err: any) {
+  } catch (err) {
     console.error(err)
-    alert(err.message)
   }
 }
 
@@ -90,15 +87,16 @@ const sendPasswordReset = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email)
     alert("Password resetLink sent!")
-  } catch (err: any) {
+  } catch (err) {
     console.error(err)
-    alert(err.message)
   }
 }
 
 const logout = () => signOut(auth)
 
 const filter = new Filter()
+
+export type MessageT = {id: string, userName: string, userPhotoURL: string, userId: string, text: string}
 
 const useMessages = () => {
   const messagesCollection = collection(db, "messages")
@@ -109,11 +107,17 @@ const useMessages = () => {
   )
   const [user] = useAuthState(auth)
   const [snapshot, loading, error] = useCollection(messagesQuery)
-  const messages =
+  const messages: MessageT[] =
         loading || error || !snapshot
           ? []
           : snapshot.docs
-            .map((doc) => ({ id: doc.id, ...doc.data() }))
+            .map((doc) => ({ 
+              id: doc.id, 
+              userName: "",
+              userPhotoURL: "",
+              userId: "",
+              text: "",
+              ...doc.data() }))
             .reverse()
 
   const sendMessage = (text: string) => {

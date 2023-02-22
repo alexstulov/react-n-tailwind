@@ -25,8 +25,8 @@ const getCoords = (i: number) => {
   }
 }
 
-class Game extends React.Component<any, StateT> {
-  constructor(props: any) {
+class Game extends React.Component<object, StateT> {
+  constructor(props: object) {
     super(props)
     this.state = {
       history: [{
