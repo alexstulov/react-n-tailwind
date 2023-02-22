@@ -30,6 +30,7 @@ const NavigationBar = () => {
             <ul className="bg-base-100 p-0">
               <li><Link to='/tic-tac-toe'>Tic Tac Toe</Link></li>
               <li><Link to='/app-ideas'>App Ideas</Link></li>
+              <li><Link to='/crud'>CRUD</Link></li>
               <li><Link to='/todo'>Todo</Link></li>
               <li><Link to='/chat-auth'>Chat</Link></li>
               <li><Link to='/exercises'>Exersices</Link></li>

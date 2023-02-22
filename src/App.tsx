@@ -11,6 +11,7 @@ import TicTacToe from "./modules/tic-tac-toe"
 import Todo from "./components/Todo"
 import Exercises from "./components/Exercises"
 import AppIdeas from "./modules/app-ideas"
+import CRUD from "./modules/crud"
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="todo" element={<Todo />} />
           <Route path="exercises" element={<Exercises />} />
           <Route path="app-ideas/*" element={<AppIdeas />} />
+          <Route path="crud/*" element={<CRUD />} />
         </Routes>
       </Router>
     </div>
