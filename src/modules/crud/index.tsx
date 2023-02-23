@@ -8,7 +8,7 @@ const CRUD = () => {
   return <Provider store={store}>
     <div data-theme="cupcake">
       <h2 className='heading-2 my-4 p-2 bg-base-300'>CRUD</h2>
-      <p>A couple of tables include multiple approaches with accent on data fetching and in-app processing</p>
+      <p>A couple of tables include multiple approaches to data fetching and in-app processing</p>
       <div className="tabs bg-accent mt-4 p-2">
         <Link className={`tab tab-bordered ${location.pathname.includes("users") && "tab-active"}`} to="/crud/users">Users</Link>
       </div>

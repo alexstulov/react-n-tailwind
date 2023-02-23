@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer, { UserT } from "./slices/userSlice"
+import userReducer, { UserStateT } from "./slices/userSlice"
 
 const store = configureStore({
   reducer: {
@@ -8,7 +8,7 @@ const store = configureStore({
 })
 
 export type StateT = {
-  users: UserT[]
+  users: UserStateT
 }
 
 export default store
