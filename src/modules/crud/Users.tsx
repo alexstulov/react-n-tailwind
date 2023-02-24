@@ -1,15 +1,16 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { format, fromUnixTime } from "date-fns"
 import { useDispatch, useSelector } from "react-redux"
-import { emptyUser, fetchUsers, setCurrentPage, setSortNOrder } from "./slices/userSlice"
-import store, { StateT } from "./store"
-import Pagination from "./Pagination"
+import { emptyUser, setCurrentPage, setSortNOrder } from "./slices/userSlice"
+import { StateT } from "./store"
+import Pagination from "./components/Pagination"
+import { Link } from "react-router-dom"
 
 const UserLine = ({userId}: {userId: number}) => {
   const {id, first_name, last_name, email, gender, last_login} =
     useSelector((state: StateT) => state.users.data.find((user) => user.id === userId)) || emptyUser
-  return <tr>
-    <td>{id}</td>
+  return <tr style={{position: "relative"}}>
+    <td><Link to={`${userId}`} className="stretched-link"></Link>{id}</td>
     <td>{first_name}</td>
     <td>{last_name}</td>
     <td>{gender}</td>
@@ -20,9 +21,6 @@ const UserLine = ({userId}: {userId: number}) => {
 
 const Users = () => {
   const dispatch = useDispatch()
-  useEffect(() => {
-    store.dispatch(fetchUsers())
-  }, [])
   const usersLength = useSelector((state: StateT) => state.users.data.length)
   const currentPage = useSelector((state: StateT) => state.users.currentPage)
   const limit = useSelector((state: StateT) => state.users.limit)
@@ -47,6 +45,9 @@ const Users = () => {
   };
 
   return <div className="overflow-x-auto p-4">
+    <div className="mb-4 flex justify-end">
+      <Link to="create" className="btn btn-primary">Create User</Link>
+    </div>
     <table className="table table-zebra table-compact w-full">
       <thead>
         <tr>
@@ -63,7 +64,6 @@ const Users = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
               </svg>
               }
-
             </th>;
           })}
         </tr>

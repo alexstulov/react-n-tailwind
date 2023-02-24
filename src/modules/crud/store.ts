@@ -12,3 +12,5 @@ export type StateT = {
 }
 
 export default store
+
+export type AppDispatch = typeof store.dispatch

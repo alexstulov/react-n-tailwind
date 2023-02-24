@@ -1,6 +1,6 @@
-
-import classNames from "classnames";
+// custom pagination template came from https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
 import React, { useMemo } from "react"
+import classNames from "classnames";
 
 const DOTS="..."
 
