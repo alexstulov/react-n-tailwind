@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { emptyUser, setCurrentPage, setSortNOrder } from "./slices/userSlice"
 import { StateT } from "./store"
 import Pagination from "./components/Pagination"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const UserLine = ({userId}: {userId: number}) => {
+  const navigate = useNavigate()
   const {id, first_name, last_name, email, gender, last_login} =
     useSelector((state: StateT) => state.users.data.find((user) => user.id === userId)) || emptyUser
-  return <tr style={{position: "relative"}}>
-    <td><Link to={`${userId}`} className="stretched-link"></Link>{id}</td>
+  return <tr onClick={() => navigate(`/crud/users/${userId}`)} className="cursor-pointer">
+    <td>{id}</td>
     <td>{first_name}</td>
     <td>{last_name}</td>
     <td>{gender}</td>
