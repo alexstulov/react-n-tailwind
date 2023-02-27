@@ -1,15 +1,14 @@
 import React from "react"
 import { format, fromUnixTime } from "date-fns"
-import { useDispatch, useSelector } from "react-redux"
-import { emptyUser, setCurrentPage, setSortNOrder } from "./slices/userSlice"
-import { StateT } from "./store"
+import { emptyUser, selectUser, setCurrentPage, setSortNOrder, SortNOrder } from "./slices/userSlice"
 import Pagination from "./components/Pagination"
 import { Link, useNavigate } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from "./hooks"
 
 const UserLine = ({userId}: {userId: number}) => {
   const navigate = useNavigate()
   const {id, first_name, last_name, email, gender, last_login} =
-    useSelector((state: StateT) => state.users.data.find((user) => user.id === userId)) || emptyUser
+    useAppSelector((state) => selectUser(state, userId)) || emptyUser
   return <tr onClick={() => navigate(`/crud/users/${userId}`)} className="cursor-pointer">
     <td>{id}</td>
     <td>{first_name}</td>
@@ -21,17 +20,17 @@ const UserLine = ({userId}: {userId: number}) => {
 }
 
 const Users = () => {
-  const dispatch = useDispatch()
-  const usersLength = useSelector((state: StateT) => state.users.data.length)
-  const currentPage = useSelector((state: StateT) => state.users.currentPage)
-  const limit = useSelector((state: StateT) => state.users.limit)
-  const sort_by = useSelector((state: StateT) => state.users.sort_by)
-  const order = useSelector((state: StateT) => state.users.order)
-  const userIds = useSelector((state: StateT) => [...state.users.data]
+  const dispatch = useAppDispatch()
+  const usersLength = useAppSelector((state) => state.users.data.length)
+  const currentPage = useAppSelector((state) => state.users.currentPage)
+  const limit = useAppSelector((state) => state.users.limit)
+  const sort_by = useAppSelector((state) => state.users.sort_by)
+  const order = useAppSelector((state) => state.users.order)
+  const userIds = useAppSelector((state) => [...state.users.data]
     .sort((a, b) => a[sort_by].toString().localeCompare(b[sort_by].toString(), "en", {numeric: true,}) * (order === "asc" ? 1 : -1))
     .slice((state.users.currentPage-1) * state.users.limit, state.users.currentPage * state.users.limit).map((user) => user.id))
 
-  const columns = [
+  const columns: {label: string, accessor: SortNOrder["sort_by"]}[] = [
     { label: "Id", accessor: "id" },
     { label: "First name", accessor: "first_name" },
     { label: "Last name", accessor: "last_name" },
@@ -40,7 +39,7 @@ const Users = () => {
     { label: "Last login", accessor: "last_login" },
   ];
 
-  const handleSortingChange = (accessor: string) => {
+  const handleSortingChange = (accessor: SortNOrder["sort_by"]) => {
     const sortOrder = accessor === sort_by && order === "asc" ? "desc" : "asc";
     dispatch(setSortNOrder({sort_by: accessor, order: sortOrder}))
   };

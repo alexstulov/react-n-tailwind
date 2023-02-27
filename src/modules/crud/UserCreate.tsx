@@ -1,9 +1,8 @@
 import React from "react"
-import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { createUser } from "./slices/userSlice"
-import { AppDispatch } from "./store"
 import UserForm from "./components/UserForm"
+import { useAppDispatch } from "./hooks"
 
 export type HandleUserCreateArgsT = {
     firstName: string, 
@@ -13,7 +12,7 @@ export type HandleUserCreateArgsT = {
 }
 
 const UserCreate = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const handleUserCreate = ({firstName, lastName, gender, email}: HandleUserCreateArgsT) => {

@@ -1,15 +1,14 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { deleteUser } from "./slices/userSlice"
-import { AppDispatch, StateT } from "./store"
+import { useAppDispatch, useAppSelector } from "./hooks"
+import { deleteUser, selectUser } from "./slices/userSlice"
 
 const User = () => {
   const {userId} = useParams()
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const id = parseInt(userId || "")
-  const user = useSelector((state: StateT) => state.users.data.find(user => user.id === id))
+  const user = useAppSelector((state) => selectUser(state, id))
 
   if (!user) {
     return <h2 className='heading-2 text-error'>User not found</h2>

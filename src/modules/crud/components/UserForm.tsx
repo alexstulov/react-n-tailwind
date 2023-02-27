@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { StateT } from "../store"
+import { useAppSelector } from "../hooks"
 import { HandleUserUpdateArgsT } from "../UserUpdate"
 
 type UserFormPropsT = {
@@ -14,8 +13,8 @@ const UserForm = ({submitHandler, userId}: UserFormPropsT) => {
   const [lastName, setLastName] = useState("")
   const [gender, setGender] = useState("male")
   const [email, setEmail] = useState("")
-  const user = useSelector((state: StateT) => state.users.data.find(user => user.id === userId))
-  const isSucceded = useSelector((state: StateT) => state.users.status)
+  const user = useAppSelector((state) => state.users.data.find(user => user.id === userId))
+  const isSucceded = useAppSelector((state) => state.users.status)
 
 
   useEffect(() => {

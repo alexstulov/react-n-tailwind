@@ -1,9 +1,8 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { updateUser } from "./slices/userSlice"
-import { AppDispatch, StateT } from "./store"
+import { selectUser, updateUser } from "./slices/userSlice"
 import UserForm from "./components/UserForm"
+import { useAppDispatch, useAppSelector } from "./hooks"
 
 export type HandleUserUpdateArgsT = {
     firstName: string, 
@@ -15,10 +14,10 @@ export type HandleUserUpdateArgsT = {
 const UserUpdate = () => {
   const {userId} = useParams()
   const id = parseInt(userId || "")
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const user = useSelector((state: StateT) => state.users.data.find(user => user.id === id))
+  const user = useAppSelector((state) => selectUser(state, id))
 
   if (!user) {
     return <h2 className='heading-2 text-error'>User not found</h2>

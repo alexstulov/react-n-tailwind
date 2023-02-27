@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import type {PayloadAction} from "@reduxjs/toolkit"
+import { RootState } from "../store";
 
 export type UserT = {
   id: number,
@@ -9,12 +11,15 @@ export type UserT = {
   last_login: number
 }
 
-export type UserStateT = {
+export interface SortNOrder {
+  sort_by: "id" | "first_name" | "last_name" | "email" | "gender" | "last_login",
+  order: string,
+}
+
+export interface UserStateT extends SortNOrder {
   data: UserT[],
   currentPage: number,
   limit: number,
-  sort_by: "id" | "first_name" | "last_name" | "email" | "gender" | "last_login",
-  order: string,
   status: "idle" | "loading" | "succeeded" | "failed",
   error: string
 }
@@ -88,13 +93,13 @@ const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setCurrentPage(state, action) {
-      state.currentPage = action.payload
+    setCurrentPage(state, action: PayloadAction<string | number>) {
+      state.currentPage = parseInt(action.payload.toString())
     },
-    setLimit(state, action) {
+    setLimit(state, action: PayloadAction<number>) {
       state.limit = action.payload
     },
-    setSortNOrder(state, action) {
+    setSortNOrder(state, action: PayloadAction<SortNOrder>) {
       return {
         ...state,
         sort_by: action.payload.sort_by,
@@ -103,7 +108,7 @@ const userSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+    builder.addCase(fetchUsers.fulfilled, (state, action: PayloadAction<UserT[]>) => {
       return {
         ...state,
         status: "succeeded",
@@ -117,7 +122,7 @@ const userSlice = createSlice({
         state.status = "failed"
         state.error = action.error.message || ""
       })
-      .addCase(updateUser.fulfilled, (state, action) => {
+      .addCase(updateUser.fulfilled, (state, action: PayloadAction<UserT>) => {
         const newData = state.data.map(user => {
           if (user.id === action.payload.id) {
             return action.payload
@@ -132,13 +137,13 @@ const userSlice = createSlice({
       .addCase(updateUser.rejected, (_, action) => {
         console.error(action.error.message)
       })
-      .addCase(createUser.fulfilled, (state, action) => {
+      .addCase(createUser.fulfilled, (state, action: PayloadAction<UserT>) => {
         state.data.push(action.payload)
       })
       .addCase(createUser.rejected, (_, action) => {
         console.error(action.error.message)
       })
-      .addCase(deleteUser.fulfilled, (state, action) => {
+      .addCase(deleteUser.fulfilled, (state, action: PayloadAction<{userId: number}>) => {
         console.log(action)
         const userI = state.data.findIndex(user => user.id === action.payload.userId)
         if (userI >= 0) {
@@ -152,5 +157,7 @@ const userSlice = createSlice({
 })
 
 export const {setCurrentPage, setSortNOrder} = userSlice.actions
+
+export const selectUser = (state:RootState, userId: number) => state.users.data.find((user) => user.id === userId)
 
 export default userSlice.reducer
