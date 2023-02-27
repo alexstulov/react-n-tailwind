@@ -1,9 +1,9 @@
 import React from "react"
 import { format, fromUnixTime } from "date-fns"
-import { emptyUser, selectUser, setCurrentPage, setSortNOrder, SortNOrder } from "./slices/userSlice"
-import Pagination from "./components/Pagination"
+import { emptyUser, selectUser, setCurrentPage, setSortNOrder, SortNOrder } from "../../slices/userSlice"
+import Pagination from "../Pagination"
 import { Link, useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "./hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
 const UserLine = ({userId}: {userId: number}) => {
   const navigate = useNavigate()

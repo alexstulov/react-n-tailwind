@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "./hooks"
-import { deleteUser, selectUser } from "./slices/userSlice"
+import { useAppDispatch, useAppSelector } from "../../hooks"
+import { deleteUser, selectUser } from "../../slices/userSlice"
 
 const User = () => {
   const {userId} = useParams()

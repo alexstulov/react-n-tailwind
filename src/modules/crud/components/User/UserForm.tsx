@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { useAppSelector } from "../hooks"
-import { HandleUserUpdateArgsT } from "../UserUpdate"
+import { useAppSelector } from "../../hooks"
+import { HandleUserUpdateArgsT } from "./UserUpdate"
 
 type UserFormPropsT = {
     submitHandler: (args: HandleUserUpdateArgsT) => void, 

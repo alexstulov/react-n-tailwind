@@ -1,8 +1,8 @@
 import React from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { selectUser, updateUser } from "./slices/userSlice"
-import UserForm from "./components/UserForm"
-import { useAppDispatch, useAppSelector } from "./hooks"
+import { selectUser, updateUser } from "../../slices/userSlice"
+import UserForm from "./UserForm"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
 export type HandleUserUpdateArgsT = {
     firstName: string, 

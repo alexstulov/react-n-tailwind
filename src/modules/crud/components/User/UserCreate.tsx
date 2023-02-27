@@ -1,8 +1,8 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { createUser } from "./slices/userSlice"
-import UserForm from "./components/UserForm"
-import { useAppDispatch } from "./hooks"
+import { createUser } from "../../slices/userSlice"
+import UserForm from "./UserForm"
+import { useAppDispatch } from "../../hooks"
 
 export type HandleUserCreateArgsT = {
     firstName: string, 
