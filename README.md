@@ -14,6 +14,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+### `npm run start-crud-backend`
+
+To work with CRUD module there are backend required. Data filled with faker, provided with json-server at [http://localhost:3001](http://localhost:3001)
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
