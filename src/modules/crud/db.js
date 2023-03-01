@@ -12,9 +12,9 @@ function createRandomUser(id) {
     }
 }
 
-function createRandomPost() {
+function createRandomPost(id) {
     return {
-        id: faker.datatype.number(),
+        id,
         title: faker.lorem.words(),
         content: faker.lorem.words(100),
         date: faker.date.recent().toISOString(),
@@ -25,8 +25,8 @@ function createRandomPost() {
 module.exports = () => {
     const data = { users: [], posts: [] }
     for (let i = 0; i < 1001; i++) {
-        data.users.push(createRandomUser(i))
-        data.posts.push(createRandomPost())
+        data.users.push(createRandomUser(i + 1))
+        data.posts.push(createRandomPost(i + 1))
     }
     return data
 }

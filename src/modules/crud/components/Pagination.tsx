@@ -95,12 +95,12 @@ export const usePagination = ({
 };
 
 type PaginationPropsT = {
-    onPageChange: (i: string | number) => void,
+    onPageChange: (i: number) => void,
     totalCount: number,
     siblingCount?: number,
     currentPage: number,
     pageSize: number,
-    className: string
+    className?: string
 }
 
 const Pagination = (props: PaginationPropsT) => {
@@ -137,7 +137,7 @@ const Pagination = (props: PaginationPropsT) => {
   const lastPage = paginationRange ? paginationRange[prLength - 1] : 0;
   return (
     <div
-      className={classNames("btn-group", { [className]: className })}
+      className={classNames("btn-group", { [className || ""]: className })}
     >
       {/* Left navigation arrow */}
       <button
@@ -155,7 +155,7 @@ const Pagination = (props: PaginationPropsT) => {
          
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <button key={pageNumber} className="btn dots btn-disabled">&#8230;</button>;
+          return <button key={pageNumber+Math.random()} className="btn dots btn-disabled">&#8230;</button>;
         }
 		
         // Render our Page Pills
@@ -165,7 +165,10 @@ const Pagination = (props: PaginationPropsT) => {
             className={classNames("btn", {
               "btn-active": pageNumber === currentPage
             })}
-            onClick={() => onPageChange(pageNumber)}
+            onClick={() => {
+              typeof pageNumber === "string" ? onPageChange(parseInt(pageNumber)) : onPageChange(pageNumber) 
+              
+            }}
           >
             {pageNumber}
           </button>

@@ -42,7 +42,7 @@ const initialState: UserStateT = {
   status: "idle",
   error: ""
 }
-
+// default redux fetching way. you may replace fetch with axios or any other package to fetch data from server
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await fetch("http://localhost:3001/users/").then(data => data.json())
   return response

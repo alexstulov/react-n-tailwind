@@ -77,7 +77,6 @@ const Users = () => {
         pageSize={limit}
         totalCount={usersLength}
         currentPage={currentPage}
-        className="someclass"
         onPageChange={(n: string | number) => dispatch(setCurrentPage(n))} />
     </div>
   </div>

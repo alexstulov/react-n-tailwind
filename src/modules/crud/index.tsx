@@ -9,6 +9,9 @@ import Users from "./components/User/Users"
 import UserUpdate from "./components/User/UserUpdate"
 import Posts from "./components/Post/Posts"
 import classNames from "classnames"
+import Post from "./components/Post/Post"
+import PostCreate from "./components/Post/PostCreate"
+import PostUpdate from "./components/Post/PostUpdate"
 
 const CRUD = () => {
   const location = useLocation()
@@ -31,6 +34,9 @@ const CRUD = () => {
         <Route path="users/update/:userId" element={<UserUpdate />} />
         <Route path="users/create" element={<UserCreate />} />
         <Route path="posts" element={<Posts />} />
+        <Route path="posts/:postId" element={<Post />} />
+        <Route path="posts/create" element={<PostCreate />} />
+        <Route path="posts/update/:postId" element={<PostUpdate />} />
       </Routes>
     </div>
   </Provider>
