@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import React, { useEffect, useMemo, useState } from "react"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { PostT, SortNOrder } from "../../slices/postSlice"
 import Pagination from "../Pagination"
 import { format } from "date-fns"
@@ -23,8 +23,19 @@ const pageSize = 10;
 
 const Posts = () => {
   const {data: posts = [], error, isLoading, isFetching, isSuccess, isError} = useGetPostsQuery("")
-  const [sortNOrder, setSortNOrder] = useState<{sortBy: SortNOrder["sort_by"], order: SortNOrder["order"]}>({sortBy: "id", order: "asc"})
-  const [currentPage, setCurrentPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [sortNOrder, setSortNOrder] = useState<{sortBy: SortNOrder["sort_by"], order: SortNOrder["order"]}>
+  ({sortBy: searchParams.get("sort_by") as SortNOrder["sort_by"] || "id", order: searchParams.get("order") || "asc"})
+  const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1"))
+  console.log(searchParams, searchParams.get("sort_by"))
+
+  useEffect(() => {
+    setSearchParams({
+      sort_by: sortNOrder.sortBy,
+      order: sortNOrder.order,
+      page: currentPage.toString()
+    })
+  }, [sortNOrder, currentPage])
 
   const sortedPosts = useMemo(() => {
     const sortedPosts: PostT[] = posts.slice()
@@ -34,7 +45,7 @@ const Posts = () => {
   }, [posts, sortNOrder, currentPage])
 
   const columns: {label: string, accessor: SortNOrder["sort_by"]}[] = [
-    {label: "d", accessor: "id"},
+    {label: "Id", accessor: "id"},
     {label: "Title", accessor: "title"},
     {label: "Content", accessor: "content"},
     {label: "Date", accessor: "date"},
