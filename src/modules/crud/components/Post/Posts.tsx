@@ -27,22 +27,40 @@ const Posts = () => {
   const [sortNOrder, setSortNOrder] = useState<{sortBy: SortNOrder["sort_by"], order: SortNOrder["order"]}>
   ({sortBy: searchParams.get("sort_by") as SortNOrder["sort_by"] || "id", order: searchParams.get("order") || "asc"})
   const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1"))
-  console.log(searchParams, searchParams.get("sort_by"))
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("query") || "")
+  const [searchQueryInput, setSearchQueryInput] = useState(searchParams.get("query") || "")
 
   useEffect(() => {
     setSearchParams({
       sort_by: sortNOrder.sortBy,
       order: sortNOrder.order,
-      page: currentPage.toString()
+      page: currentPage.toString(),
+      query: searchQuery
     })
-  }, [sortNOrder, currentPage])
+  }, [sortNOrder, currentPage, searchQuery])
 
-  const sortedPosts = useMemo(() => {
+  const filteredPosts = useMemo(() => {
     const sortedPosts: PostT[] = posts.slice()
-    return sortedPosts.sort((a, b) => a[sortNOrder.sortBy].toString()
-      .localeCompare(b[sortNOrder.sortBy].toString(), "en", {numeric: true}) * (sortNOrder.order === "asc" ? 1 : -1))
-      .slice((currentPage-1) * pageSize, currentPage * pageSize)
-  }, [posts, sortNOrder, currentPage])
+    return sortedPosts
+      .filter(post => (post.id.toString().toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
+        post.title.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
+        post.content.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
+        format(new Date(post.date), "MM/dd/yyyy").toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())))
+      .sort((a, b) => a[sortNOrder.sortBy].toString()
+        .localeCompare(b[sortNOrder.sortBy].toString(), "en", {numeric: true}) * (sortNOrder.order === "asc" ? 1 : -1))
+      
+  }, [posts, sortNOrder, searchQuery])
+
+  const pagePosts = useMemo(() => filteredPosts.slice((currentPage-1) * pageSize, currentPage * pageSize), [filteredPosts, currentPage])
+
+  useEffect(() => {
+    const totalPages = Math.ceil(filteredPosts.length / pageSize)
+    if (totalPages < currentPage) {
+      setCurrentPage(totalPages)
+    }
+  }, [
+    searchQuery, filteredPosts, pageSize, setCurrentPage
+  ])
 
   const columns: {label: string, accessor: SortNOrder["sort_by"]}[] = [
     {label: "Id", accessor: "id"},
@@ -58,6 +76,11 @@ const Posts = () => {
       sortBy: accessor
     })
   }
+
+  const submitHandler = () => {
+    setSearchQuery(searchQueryInput)
+  }
+  
   let content
 
   if (isLoading) {
@@ -88,13 +111,13 @@ const Posts = () => {
           </tr>
         </thead>
         <tbody>
-          {sortedPosts?.map((post: PostT, i) => <PostLine key={i} post={post} />)}
+          {pagePosts?.map((post: PostT, i) => <PostLine key={i} post={post} />)}
         </tbody>
       </table>
       <div className="flex flex-row justify-end mt-4">
         <Pagination 
           pageSize={pageSize}
-          totalCount={posts.length}
+          totalCount={filteredPosts.length}
           currentPage={currentPage}
           onPageChange={(n: number) => setCurrentPage(n)}
         />
@@ -106,7 +129,24 @@ const Posts = () => {
   }
 
   return <div className="overflow-x-auto p-4">
-    <div className="mb-4 flex justify-end">
+    <div className="mb-4 flex justify-between">
+      <form onSubmit={e => {
+        e.preventDefault()
+        submitHandler()
+      }}>
+        <div className="form-control">
+          <div className="form-control">
+            <label className="input-group">
+              <input className="input input-bordered input-info" type="text" name="search_query" value={searchQueryInput} onChange={e => setSearchQueryInput(e.target.value)} placeholder="Search..." />
+              <button type="button" className="btn btn-secondary mr-2" onClick={submitHandler}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+              </button>
+            </label>
+          </div>
+        </div>
+      </form>
       <Link to="create" className='btn btn-primary'>Create Post</Link>
     </div>
     {content}
