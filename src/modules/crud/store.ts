@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { jsonServerApi } from "./services/json-server";
 import userReducer from "./slices/userSlice"
+import pokemonReducer from "./slices/pokemonSlice"
 
 const store = configureStore({
   reducer: {
     users: userReducer,
+    pokemons: pokemonReducer,
     [jsonServerApi.reducerPath]: jsonServerApi.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(jsonServerApi.middleware)

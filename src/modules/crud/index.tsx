@@ -12,11 +12,16 @@ import classNames from "classnames"
 import Post from "./components/Post/Post"
 import PostCreate from "./components/Post/PostCreate"
 import PostUpdate from "./components/Post/PostUpdate"
+import Pokemons from "./components/Pokemon/Pokemons"
+import { fetchAllPokemons, fetchAllPokemonTypes } from "./slices/pokemonSlice"
+import Pokemon from "./components/Pokemon/Pokemon"
 
 const CRUD = () => {
   const location = useLocation()
   useEffect(() => {
     store.dispatch(fetchUsers())
+    store.dispatch(fetchAllPokemons())
+    store.dispatch(fetchAllPokemonTypes())
   }, [])
 
   return <Provider store={store}>
@@ -26,6 +31,7 @@ const CRUD = () => {
       <div className="tabs bg-accent mt-4 p-2">
         <Link className={classNames("tab tab-bordered", {"tab-active": location.pathname.includes("users")})} to="/crud/users">Users</Link>
         <Link className={classNames("tab tab-bordered", {"tab-active": location.pathname.includes("posts")})} to="/crud/posts">Posts</Link>
+        <Link className={classNames("tab tab-bordered", {"tab-active": location.pathname.includes("pokemons")})} to="/crud/pokemons">Pokemons</Link>
       </div>
       <Outlet />
       <Routes>
@@ -37,6 +43,8 @@ const CRUD = () => {
         <Route path="posts/:postId" element={<Post />} />
         <Route path="posts/create" element={<PostCreate />} />
         <Route path="posts/update/:postId" element={<PostUpdate />} />
+        <Route path="/pokemons" element={<Pokemons />} />
+        <Route path="/pokemons/:pokemonId" element={<Pokemon />} />
       </Routes>
     </div>
   </Provider>
