@@ -3,9 +3,13 @@ import type { PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
 import { RootState } from "../store"
 
+interface PokemonWrapperT {
+  pokemon: PokemonT,
+  slot: number
+}
 interface PokemonTypeDetailsT {
   name: string,
-  pokemon: PokemonT[]
+  pokemon: PokemonWrapperT[]
 }
 
 interface PokemonTypeT {
@@ -25,6 +29,7 @@ interface PokemonStateT {
       currentPage: number,
       limit: number,
       searchQuery: string,
+      tags: string[],
       total: number,
       status: "idle" | "loading" | "succeeded" | "failed",
       error: string
@@ -33,7 +38,13 @@ interface PokemonStateT {
 }
 
 
-
+interface TypeWrapperT {
+    slot: number,
+    type: {
+      name: string,
+      url: string
+    }
+  }
 interface PokemonDetailsT {
   name: string,
   height: number,
@@ -43,13 +54,7 @@ interface PokemonDetailsT {
   sprites: {
     front_default: string
   },
-  types: {
-    slot: number,
-    type: {
-      name: string,
-      url: string
-    }
-  }[]
+  types: string[]
 }
 
 interface PokemonT {
@@ -70,6 +75,7 @@ const initialState: PokemonStateT = {
     currentPage: 1,
     status: "idle",
     searchQuery: "",
+    tags: [],
     total: 0,
     error: ""
   },
@@ -86,10 +92,15 @@ const basePath = "https://pokeapi.co/api/v2"
 
 export const fetchTablePokemons = createAsyncThunk("pokemons/fetchTablePokemons", async (_, thunkApi) => {
   const state = thunkApi.getState() as RootState
-  const {allPokemons, tablePokemons} = state.pokemons
+  const {allPokemons, tablePokemons, allTypes} = state.pokemons
 
-  const searchedPokemons = allPokemons.data
+  let searchedPokemons = allPokemons.data
     .filter(pokemon => pokemon.name.toLocaleLowerCase().includes(tablePokemons.searchQuery))
+  if (tablePokemons.tags.length) {
+    let taggedPokemons = allTypes.filter(type => tablePokemons.tags.includes(type.name)).map(type => type.details?.pokemon).flat().map(pokemonWrapper => pokemonWrapper?.pokemon.name)
+    taggedPokemons = [...new Set(taggedPokemons)]
+    searchedPokemons = searchedPokemons.filter(sPokemon => taggedPokemons.includes(sPokemon.name))
+  }
   const pagedPokemons = searchedPokemons
     .slice((tablePokemons.currentPage-1) * tablePokemons.limit, tablePokemons.currentPage * tablePokemons.limit)
   const initialValue: {pokemonsToFetch: PokemonT[], pokemonsToGo: PokemonT[]} = {pokemonsToFetch: [], pokemonsToGo: []}
@@ -118,10 +129,16 @@ export const fetchTablePokemons = createAsyncThunk("pokemons/fetchTablePokemons"
     await Promise.all(
       pokemonsToFetch.map(async (pokemon: PokemonT) => await axios.get(`${basePath}/pokemon/${pokemon.name}`)))
       .then(pokemonDetailsList => {
-        fetchedPokemons = pokemonsToFetch.map(pokemon => ({
-          ...pokemon,
-          details: pokemonDetailsList.find(pokemonDetails => pokemon.name === pokemonDetails.data.name)?.data || null
-        }))
+        fetchedPokemons = pokemonsToFetch.map(pokemon => {
+          const dtls = pokemonDetailsList.find(pokemonDetails => pokemon.name === pokemonDetails.data.name)?.data || null
+          return {
+            ...pokemon,
+            details: {
+              ...dtls,
+              types: dtls.types.map((typeWrapper: TypeWrapperT) => typeWrapper.type.name)
+            }
+          }
+        })
       })
     return {
       pokemons: [
@@ -169,6 +186,14 @@ const pokemonSlice = createSlice({
     },
     setSearchQuery(state, action: PayloadAction<string>) {
       state.tablePokemons.searchQuery = action.payload
+    },
+    addTag(state, action: PayloadAction<string>) {
+      const {tags} = state.tablePokemons
+      state.tablePokemons.tags = [...new Set([...tags, action.payload])]
+    },
+    dropTag(state, action: PayloadAction<string>) {
+      const {tags} = state.tablePokemons
+      tags.splice(tags.findIndex(tag => tag === action.payload), 1)
     }
   },
   extraReducers(builder) {
@@ -221,6 +246,7 @@ export const selectAllPokemonsLoaded = (state: RootState) => state.pokemons.allP
 export const selectTablePokemons = (state: RootState) => state.pokemons.tablePokemons
 export const selectPokemonById = (state: RootState, pokemonId: string) => state.pokemons.tablePokemons.data.find(pokemon => pokemon.name === pokemonId)
 export const selectAllTypes = (state: RootState) => state.pokemons.allTypes
-export const {setCurrentPage, setSearchQuery} = pokemonSlice.actions
+export const selectAllTypesIds = (state: RootState) => state.pokemons.allTypes.map(type => type.name)
+export const {setCurrentPage, setSearchQuery, addTag, dropTag} = pokemonSlice.actions
 
 export default pokemonSlice.reducer

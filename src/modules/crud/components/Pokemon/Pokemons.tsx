@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchTablePokemons, selectAllPokemons, selectTablePokemons, setSearchQuery } from "../../slices/pokemonSlice"
+import { dropTag, addTag, fetchTablePokemons, selectAllPokemons, selectAllTypesIds, selectTablePokemons, setSearchQuery } from "../../slices/pokemonSlice"
 import { setCurrentPage } from "../../slices/pokemonSlice"
 import { AppDispatch, RootState } from "../../store"
 import Pagination from "../Pagination"
@@ -11,8 +11,9 @@ let once = false
 const Pokemons = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [searchQueryInput, setSearchQueryInput] = useState("")
-  const [tag, setTag] = useState("normal")
+  const [tag, setTag] = useState("")
   const allPokemons = useSelector(selectAllPokemons)
+  const allTypesIds = useSelector(selectAllTypesIds)
   const allPokemonsStatus = useSelector((state: RootState) => state.pokemons.allPokemons.status)
   const tablePokemons = useSelector(selectTablePokemons)
 
@@ -27,13 +28,19 @@ const Pokemons = () => {
     dispatch(setSearchQuery(searchQueryInput))
   }
 
-  const addTag = (e: any) => {
-    console.log("add tag", e.target.value)
+  const handleDropTag = (tag: string) => dispatch(dropTag(tag))
+
+  const handleAddTag = (tag: string) => {
+    if (tag === "") {
+      return
+    }
+    dispatch(addTag(tag))
+    setTag("")
   }
 
   useEffect(() => {
     dispatch(fetchTablePokemons())
-  }, [tablePokemons.currentPage, tablePokemons.searchQuery])
+  }, [tablePokemons.currentPage, tablePokemons.searchQuery, tablePokemons.tags])
 
   const columns = [
     {
@@ -68,24 +75,25 @@ const Pokemons = () => {
         <div className="form-control">
           <label className="input-group">
             <select className="select select-bordered select-info" name="tag" value={tag} onChange={e => setTag(e.target.value)}>
-              <option value="normal">normal</option>
-              <option value="fire">fire</option>
-              <option value="water">water</option>
+              <option value="">Select type</option>
+              {allTypesIds.filter(type => !tablePokemons.tags.includes(type)).map(typeName => <option key={typeName} value={typeName}>{typeName}</option>)}
             </select>
-            <button type="button" className="btn btn-secondary mr-2" onClick={addTag}>
+            <button type="button" className="btn btn-secondary mr-2" onClick={() => handleAddTag(tag)}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
             </button>
           </label>
         </div>
-        <div className="badge p-3 mt-4">
-          <span>text</span>
-          <button onClick={() => console.log("click")}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+        <div className="flex flex-row gap-x-1 mt-4 flex-wrap">
+          {tablePokemons.tags.map(tag => (<div key={tag} className="badge p-3 mb-2">
+            <span>#{tag}</span>
+            <button onClick={() => handleDropTag(tag)}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>))}
         </div>
       </div>
       <div>
@@ -119,7 +127,7 @@ const Pokemons = () => {
           <td>{pokemon.url}</td>
           <td>{pokemon.details?.weight}</td>
           <td>{pokemon.details?.height}</td>
-          <td>{pokemon.details?.types.map(typeWrapper => `#${typeWrapper.type.name}`).join(", ")}</td>
+          <td>{pokemon.details?.types.map((type) => <button key={type} className="badge mr-1" onClick={() => handleAddTag(type)}>#{type}</button>)}</td>
         </tr>)}
       </tbody>
     </table>
