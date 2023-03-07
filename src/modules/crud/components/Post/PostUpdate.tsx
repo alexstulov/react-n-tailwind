@@ -1,13 +1,7 @@
 import React from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import PostForm from "./PostForm"
+import PostForm, { HandlePostFormArgsT } from "./PostForm"
 import { useEditPostMutation } from "../../slices/postSlice"
-
-export type HandlePostUpdateArgsT = {
-    title: string,
-    content: string,
-    userId: number
-}
 
 const PostUpdate = () => {
   const {postId} = useParams()
@@ -16,7 +10,7 @@ const PostUpdate = () => {
 
   const [updatePost] = useEditPostMutation()
   
-  const handlePostUpdate = async ({title, content, userId}: HandlePostUpdateArgsT) => {
+  const handlePostUpdate = async ({title, content, userId}: HandlePostFormArgsT) => {
     if (!title || !content) {
       return
     }

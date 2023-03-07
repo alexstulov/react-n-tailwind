@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { useAppSelector } from "../../hooks"
-import { useAddPostMutation, useGetPostQuery } from "../../slices/postSlice"
+import { useGetPostQuery } from "../../slices/postSlice"
 import { Spinner } from "../Spinner"
 
+export type HandlePostFormArgsT = {
+    title: string, 
+    content: string, 
+    userId: string, 
+}
+
 type PostFormPropsT = {
-    submitHandler: (args: any) => void, 
+    submitHandler: (args: HandlePostFormArgsT) => void, 
     postId?: number
 }
 
@@ -13,11 +18,7 @@ const PostForm = ({submitHandler, postId}: PostFormPropsT) => {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [userId, setUserId] = useState(0)
-  // const user = useAppSelector((state) => state.users.data.find(user => user.id === userId))
-  // const isSucceded = useAppSelector((state) => state.users.status)
-  const [_, {isLoading}] = useAddPostMutation()
   const {data: post, isLoading: isLoadingPost, isSuccess} = useGetPostQuery(postId ||0)
-  const canSave = [title, content, userId].every(Boolean) && !isLoading
 
   useEffect(() => {
     if (isSuccess && post) {
@@ -50,7 +51,7 @@ const PostForm = ({submitHandler, postId}: PostFormPropsT) => {
         </select>
       </div>
       <div className="flex flex-row justify-end mt-2">
-        <button type="button" className="btn btn-secondary mr-2" onClick={() => submitHandler({title, content, userId})}>Save</button>
+        <button type="button" className="btn btn-secondary mr-2" onClick={() => submitHandler({title, content, userId: userId.toString()})}>Save</button>
         <Link className="btn btn-accent" to={"/crud/posts"}>Back</Link>
       </div>
     </form>
