@@ -131,8 +131,12 @@ export const fetchTablePokemons = createAsyncThunk("pokemons/fetchTablePokemons"
         return Promise.all(pokemonsToFetch.map(async pokemon => {
           const dtls = pokemonDetailsList.find(pokemonDetails => pokemon.name === pokemonDetails.data.name)?.data || null
           const imgUrl = dtls.sprites.front_default
-          const img = await axios.get(imgUrl, {responseType: "arraybuffer"})
-            .then(response => Buffer.from(response.data, "binary").toString("base64"))
+          let img = ""
+          if (imgUrl) {
+            img = await axios.get(imgUrl, {responseType: "arraybuffer"})
+              .then(response => Buffer.from(response.data, "binary").toString("base64"))
+          }
+          
           return {
             ...pokemon,
             details: {
