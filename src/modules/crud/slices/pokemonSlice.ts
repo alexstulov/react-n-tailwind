@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
 import { RootState } from "../store"
+import { Buffer } from "buffer"
 
 interface PokemonWrapperT {
   pokemon: PokemonT,
@@ -129,16 +130,23 @@ export const fetchTablePokemons = createAsyncThunk("pokemons/fetchTablePokemons"
     await Promise.all(
       pokemonsToFetch.map(async (pokemon: PokemonT) => await axios.get(`${basePath}/pokemon/${pokemon.name}`)))
       .then(pokemonDetailsList => {
-        fetchedPokemons = pokemonsToFetch.map(pokemon => {
+        return Promise.all(pokemonsToFetch.map(async pokemon => {
           const dtls = pokemonDetailsList.find(pokemonDetails => pokemon.name === pokemonDetails.data.name)?.data || null
+          const imgUrl = dtls.sprites.front_default
+          const img = await axios.get(imgUrl, {responseType: "arraybuffer"})
+            .then(response => Buffer.from(response.data, "binary").toString("base64"))
           return {
             ...pokemon,
             details: {
               ...dtls,
-              types: dtls.types.map((typeWrapper: TypeWrapperT) => typeWrapper.type.name)
+              types: dtls.types.map((typeWrapper: TypeWrapperT) => typeWrapper.type.name),
+              img
             }
           }
-        })
+        }))
+      })
+      .then((fPokemons: PokemonT[]) => {
+        fetchedPokemons = fPokemons        
       })
     
     return {
