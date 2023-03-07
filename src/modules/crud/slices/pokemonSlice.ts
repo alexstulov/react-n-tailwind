@@ -140,17 +140,17 @@ export const fetchTablePokemons = createAsyncThunk("pokemons/fetchTablePokemons"
           }
         })
       })
+    
     return {
-      pokemons: [
-        ...pokemonsToGo,
-        ...fetchedPokemons
-      ],
+      pokemonsToGo,
+      fetchedPokemons,
       total: searchedPokemons.length
     }
   }
   
   return {
-    pokemons: pokemonsToGo,
+    pokemonsToGo,
+    fetchedPokemons: [],
     total: searchedPokemons.length
   }
 })
@@ -202,7 +202,10 @@ const pokemonSlice = createSlice({
         ...state,
         allPokemons: {
           ...state.allPokemons,
-          data: action.payload.map(pokemon => ({...pokemon, details: null})),
+          data: action.payload.map(pokemon => ({
+            ...pokemon,
+            details: pokemon.details || null
+          })),
           status: "succeeded",
         },
       }
@@ -214,15 +217,29 @@ const pokemonSlice = createSlice({
       state.allPokemons.status = "failed"
       state.allPokemons.error = action.error.message || ""
     }),
-    builder.addCase(fetchTablePokemons.fulfilled, (state, action: PayloadAction<{pokemons: PokemonT[], total: number}>) => {
-      return {
-        ...state,
-        tablePokemons: {
-          ...state.tablePokemons,
-          data: action.payload.pokemons,
-          total: action.payload.total,
-          status: "succeeded",
-        },
+    builder.addCase(fetchTablePokemons.fulfilled, (state, action: PayloadAction<{
+      pokemonsToGo: PokemonT[],
+      fetchedPokemons: PokemonT[],
+      total: number
+    }>) => {
+      const {pokemonsToGo,fetchedPokemons,total} = action.payload
+      const cache = {...state.allPokemons}
+
+      fetchedPokemons.forEach(fPokemon => {
+        const index = cache.data.findIndex(aPokemon => aPokemon.name === fPokemon.name)
+        if (index > -1) {
+          cache.data[index] = fPokemon
+        }
+      })
+
+      state.tablePokemons = {
+        ...state.tablePokemons,
+        data: [
+          ...pokemonsToGo,
+          ...fetchedPokemons
+        ],
+        total: total,
+        status: "succeeded",
       }
     }),
     builder.addCase(fetchTablePokemons.pending, state => {
