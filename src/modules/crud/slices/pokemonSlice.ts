@@ -52,9 +52,7 @@ interface PokemonDetailsT {
   weight: number,
   id: number,
   order: number,
-  sprites: {
-    front_default: string
-  },
+  img: string,
   types: string[]
 }
 
@@ -202,6 +200,9 @@ const pokemonSlice = createSlice({
     dropTag(state, action: PayloadAction<string>) {
       const {tags} = state.tablePokemons
       tags.splice(tags.findIndex(tag => tag === action.payload), 1)
+    },
+    setRowsPerPage(state, action: PayloadAction<number>) {
+      state.tablePokemons.limit = action.payload
     }
   },
   extraReducers(builder) {
@@ -272,6 +273,6 @@ export const selectTablePokemons = (state: RootState) => state.pokemons.tablePok
 export const selectPokemonById = (state: RootState, pokemonId: string) => state.pokemons.tablePokemons.data.find(pokemon => pokemon.name === pokemonId)
 export const selectAllTypes = (state: RootState) => state.pokemons.allTypes
 export const selectAllTypesIds = (state: RootState) => state.pokemons.allTypes.map(type => type.name)
-export const {setCurrentPage, setSearchQuery, addTag, dropTag} = pokemonSlice.actions
+export const {setCurrentPage, setSearchQuery, addTag, dropTag, setRowsPerPage} = pokemonSlice.actions
 
 export default pokemonSlice.reducer

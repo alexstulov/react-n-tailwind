@@ -100,7 +100,8 @@ type PaginationPropsT = {
     siblingCount?: number,
     currentPage: number,
     pageSize: number,
-    className?: string
+    className?: string,
+    onRowsPerPageChange?: (rows: number) => void
 }
 
 const Pagination = (props: PaginationPropsT) => {
@@ -110,6 +111,7 @@ const Pagination = (props: PaginationPropsT) => {
     siblingCount = 1,
     currentPage,
     pageSize,
+    onRowsPerPageChange,
     className
   } = props;
 
@@ -139,6 +141,14 @@ const Pagination = (props: PaginationPropsT) => {
     <div
       className={classNames("btn-group", { [className || ""]: className })}
     >
+      {onRowsPerPageChange && <div className="mr-2">
+        <span>Rows per page: </span>
+        <select className="select select-bordered select-primary" value={pageSize} onChange={(event) => onRowsPerPageChange(parseInt(event.target.value))}>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+        </select>
+      </div>}
       {/* Left navigation arrow */}
       <button
         className={classNames("btn", {

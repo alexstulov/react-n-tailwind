@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { dropTag, addTag, fetchTablePokemons, selectAllPokemons, selectAllTypesIds, selectTablePokemons, setSearchQuery } from "../../slices/pokemonSlice"
+import { dropTag, addTag, fetchTablePokemons, selectAllPokemons, selectAllTypesIds, selectTablePokemons, setSearchQuery, setRowsPerPage } from "../../slices/pokemonSlice"
 import { setCurrentPage } from "../../slices/pokemonSlice"
 import { AppDispatch, RootState } from "../../store"
 import Pagination from "../Pagination"
@@ -40,7 +40,12 @@ const Pokemons = () => {
 
   useEffect(() => {
     dispatch(fetchTablePokemons())
-  }, [tablePokemons.currentPage, tablePokemons.searchQuery, tablePokemons.tags])
+  }, [
+    tablePokemons.currentPage,
+    tablePokemons.searchQuery, 
+    tablePokemons.tags,
+    tablePokemons.limit
+  ])
 
   const columns = [
     {
@@ -122,7 +127,7 @@ const Pokemons = () => {
       </thead>
       <tbody>
         {tablePokemons.data.map(pokemon => <tr key={pokemon.name}>
-          <td><img src={pokemon.details?.sprites.front_default} alt={pokemon.name} /></td>
+          <td><img src={`data:image/jpeg;charset=utf-8;base64,${pokemon.details?.img}`} alt={pokemon.name} /></td>
           <td><Link to={pokemon.name}>{pokemon.name}</Link></td>
           <td>{pokemon.url}</td>
           <td>{pokemon.details?.weight}</td>
@@ -136,7 +141,9 @@ const Pokemons = () => {
         pageSize={tablePokemons.limit}
         totalCount={tablePokemons.total}
         currentPage={tablePokemons.currentPage}
-        onPageChange={(n: string | number) => dispatch(setCurrentPage(n))} />
+        onPageChange={(n: string | number) => dispatch(setCurrentPage(n))} 
+        onRowsPerPageChange={rows => dispatch(setRowsPerPage(rows))}
+      />
     </div>
   </div>
 }
