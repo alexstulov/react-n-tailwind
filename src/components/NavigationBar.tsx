@@ -34,6 +34,7 @@ const NavigationBar = () => {
               <li><Link to='/todo'>Todo</Link></li>
               <li><Link to='/chat-auth'>Chat</Link></li>
               <li><Link to='/exercises'>Exersices</Link></li>
+              <li><Link to='/experimental'>Experimental</Link></li>
             </ul>
           </li>
         </ul>

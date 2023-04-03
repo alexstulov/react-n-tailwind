@@ -12,6 +12,8 @@ import Todo from "./components/Todo"
 import Exercises from "./components/Exercises"
 import AppIdeas from "./modules/app-ideas"
 import CRUD from "./modules/crud"
+import Experimental from "./modules/experimental"
+
 
 const App = () => {
   return (
@@ -19,7 +21,6 @@ const App = () => {
       <Router>
         <NavigationBar />
         <Routes>
-          <Route path="/" element={<div>Main</div>} />
           <Route path="chat-auth" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="reset" element={<Reset />} />
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="exercises" element={<Exercises />} />
           <Route path="app-ideas/*" element={<AppIdeas />} />
           <Route path="crud/*" element={<CRUD />} />
+          <Route path="experimental" element={<Experimental />} />
         </Routes>
       </Router>
     </div>
