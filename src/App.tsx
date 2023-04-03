@@ -13,6 +13,7 @@ import Exercises from "./components/Exercises"
 import AppIdeas from "./modules/app-ideas"
 import CRUD from "./modules/crud"
 import Experimental from "./modules/experimental"
+import Home from "./components/Home"
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
       <Router>
         <NavigationBar />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="chat-auth" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="reset" element={<Reset />} />

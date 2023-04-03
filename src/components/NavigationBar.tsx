@@ -4,6 +4,14 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { Link, useNavigate } from "react-router-dom"
 import { auth, logout } from "../firebase"
 
+export const Links = () => <><li><Link to='/tic-tac-toe'>Tic Tac Toe</Link></li>
+  <li><Link to='/app-ideas'>App Ideas</Link></li>
+  <li><Link to='/crud'>CRUD</Link></li>
+  <li><Link to='/todo'>Todo</Link></li>
+  <li><Link to='/chat-auth'>Chat</Link></li>
+  <li><Link to='/exercises'>Exersices</Link></li>
+  <li><Link to='/experimental'>Experimental</Link></li></>
+
 const NavigationBar = () => {
   const [user, loading] = useAuthState(auth)
   const navigate = useNavigate()
@@ -28,13 +36,7 @@ const NavigationBar = () => {
           <li>
             <span>Menu</span>
             <ul className="bg-base-100 p-0">
-              <li><Link to='/tic-tac-toe'>Tic Tac Toe</Link></li>
-              <li><Link to='/app-ideas'>App Ideas</Link></li>
-              <li><Link to='/crud'>CRUD</Link></li>
-              <li><Link to='/todo'>Todo</Link></li>
-              <li><Link to='/chat-auth'>Chat</Link></li>
-              <li><Link to='/exercises'>Exersices</Link></li>
-              <li><Link to='/experimental'>Experimental</Link></li>
+              <Links />
             </ul>
           </li>
         </ul>

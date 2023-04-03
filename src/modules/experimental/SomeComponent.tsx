@@ -1,7 +1,7 @@
 import React from "react"
 
 export class SomeComponent extends React.Component {
-  constructor(props: any) {
+  constructor(props: object) {
     super(props)
     this.state = () => ({arr: [0,1,2]})
   }
