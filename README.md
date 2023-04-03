@@ -1,3 +1,14 @@
+# Description
+
+This project is a compilation of different React-related projects, styled with Tailwind (daisy-ui). List of modules:
+
+-   Tic-tac-toe
+-   Todo list
+-   Chat
+-   CRUD
+-   App-ideas
+-   Interview experiments
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
