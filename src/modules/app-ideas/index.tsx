@@ -5,6 +5,7 @@ import BorderRadiusPreviewer from "./BorderRadiusPreviewer"
 
 import { Provider } from "react-redux";
 import store from "./store"
+import Calculator from "./calculator";
 
 const AppIdeas = () => {
   const location = useLocation()
@@ -17,11 +18,13 @@ const AppIdeas = () => {
           <div className="tabs bg-accent mt-4 p-2">
             <Link className={`tab tab-bordered ${location.pathname.includes("bin2dec") && "tab-active"}`} to="/app-ideas/bin2dec">Bin2Dec</Link>
             <Link className={`tab tab-bordered ${location.pathname.includes("border-radius-previewer") && "tab-active"}`} to="/app-ideas/border-radius-previewer">BorderRadiusPreviewer</Link>
+            <Link className={`tab tab-bordered ${location.pathname.includes("calculator") && "tab-active"}`} to="/app-ideas/calculator">Calculator</Link>
           </div>
           <Outlet />
           <Routes>
             <Route path={"bin2dec"} element={<Bin2Dec />} />
             <Route path={"border-radius-previewer"} element={<BorderRadiusPreviewer />} />
+            <Route path={"calculator"} element={<Calculator />} />
           </Routes>
         </div>
       </div>
