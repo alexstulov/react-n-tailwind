@@ -1,3 +1,7 @@
+:root {
+    --tglbg: red;
+}
+
 .sound-dot {
     width: 4px;
     height:4px;
