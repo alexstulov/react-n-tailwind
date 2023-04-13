@@ -4,6 +4,7 @@ import {SomeComponent} from "./SomeComponent"
 import { Test } from "./Test"
 import ErrorBoundary from "../../components/ErrorBoundary"
 import ErrorThrower from "./ErrorThrower"
+import MyUseRef from "./MyUseRef"
 
 const Experimental = () => {
   return <>
@@ -23,6 +24,7 @@ const Experimental = () => {
         </div>
       </ErrorBoundary>
     </div>
+    <MyUseRef />
   </>
 }
 
