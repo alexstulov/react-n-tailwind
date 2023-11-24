@@ -1,0 +1,130 @@
+.christmas-lights {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+.garland {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.garland--bulb {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin-right: 20px;
+    background-color: red;
+}
+.garland--bulb__color-red {
+    background-color: #f00613;
+}
+.garland--bulb__color-pink {
+    background-color: #f405b6;
+}
+.garland--bulb__color-blue {
+    background-color: #1055f1;
+}
+.garland--bulb__color-turquoise {
+    background-color: #09bffe;
+}
+.garland--bulb__color-mint {
+    background-color: #02de84;
+}
+.garland--bulb__color-green {
+    background-color: #04d406;
+}
+.garland--bulb__color-yellow {
+    background-color: #ffe22e;
+}
+.garland--bulb__color-orange {
+    background-color: #fa7403;
+}
+
+@keyframes filter-animation-red {
+   0% {filter: none;}
+   20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #f00613;}
+   40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #f00613;}
+   45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #f00613;}
+   55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #f00613;}
+   60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #f00613;}
+   80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #f00613;}
+   100% {filter: none;}
+}
+
+@keyframes filter-animation-pink {
+   0% {filter: none;}
+   20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #f405b6;}
+   40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #f405b6;}
+   45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #f405b6;}
+   55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #f405b6;}
+   60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #f405b6;}
+   80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #f405b6;}
+   100% {filter: none;}
+}
+
+@keyframes filter-animation-blue {
+    0% {filter: none;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #1055f1;}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #1055f1;}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #1055f1;}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #1055f1;}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #1055f1;}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #1055f1;}
+    100% {filter: none;}
+ }
+
+@keyframes filter-animation-turquoise {
+    0% {filter: none;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #09bffe;}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #09bffe;}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #09bffe;}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #09bffe;}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #09bffe;}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #09bffe;}
+    100% {filter: none;}
+ }
+
+ @keyframes filter-animation-mint {
+     0% {filter: none;}
+     20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #02de84;}
+     40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #02de84;}
+     45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #02de84;}
+     55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #02de84;}
+     60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #02de84;}
+     80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #02de84;}
+     100% {filter: none;}
+  }
+
+  @keyframes filter-animation-green {
+      0% {filter: none;}
+      20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #04d406;}
+      40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #04d406;}
+      45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #04d406;}
+      55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #04d406;}
+      60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #04d406;}
+      80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #04d406;}
+      100% {filter: none;}
+   }
+
+   @keyframes filter-animation-yellow {
+       0% {filter: none;}
+       20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #fa7403;}
+       40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #fa7403;}
+       45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #fa7403;}
+       55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #fa7403;}
+       60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #fa7403;}
+       80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #fa7403;}
+       100% {filter: none;}
+    }
+
+    @keyframes filter-animation-orange {
+        0% {filter: none;}
+        20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #fa7403;}
+        40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #fa7403;}
+        45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #fa7403;}
+        55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #fa7403;}
+        60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #fa7403;}
+        80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #fa7403;}
+        100% {filter: none;}
+     }
