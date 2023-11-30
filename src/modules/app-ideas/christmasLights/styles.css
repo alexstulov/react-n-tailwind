@@ -1,131 +1,125 @@
-.christmas-lights {
-    padding: 20px;
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    background-color: darkgrey;
+:root {
+    --red-bulb-color: #f00613;
+    --pink-bulb-color: #f405b6;
+    --blue-bulb-color: #1055f1;
+    --turquoise-bulb-color: #09bffe;
+    --mint-bulb-color: #02de84;
+    --green-bulb-color: #04d406;
+    --yellow-bulb-color: #ffe22e;
+    --orange-bulb-color: #fa7403;
+  }
+.min-width-half {
+    min-width: 50%;
 }
-.garland {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.bulb-color-red {
+    background-color: var(--red-bulb-color);
 }
-.garland--bulb {
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    margin-right: 20px;
-    background-color: red;
+.bulb-color-pink {
+    background-color: var(--pink-bulb-color);
 }
-.garland--bulb__color-red {
-    background-color: #f00613;
+.bulb-color-blue {
+    background-color: var(--blue-bulb-color);
 }
-.garland--bulb__color-pink {
-    background-color: #f405b6;
+.bulb-color-turquoise {
+    background-color: var(--turquoise-bulb-color);
 }
-.garland--bulb__color-blue {
-    background-color: #1055f1;
+.bulb-color-mint {
+    background-color: var(--mint-bulb-color);
 }
-.garland--bulb__color-turquoise {
-    background-color: #09bffe;
+.bulb-color-green {
+    background-color: var(--green-bulb-color);
 }
-.garland--bulb__color-mint {
-    background-color: #02de84;
+.bulb-color-yellow {
+    background-color: var(--yellow-bulb-color);
 }
-.garland--bulb__color-green {
-    background-color: #04d406;
-}
-.garland--bulb__color-yellow {
-    background-color: #ffe22e;
-}
-.garland--bulb__color-orange {
-    background-color: #fa7403;
+.bulb-color-orange {
+    background-color: var(--orange-bulb-color);
 }
 
 @keyframes filter-animation-red {
-   0% {filter: none;}
-   20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #f00613;}
-   40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #f00613;}
-   45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #f00613;}
-   55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #f00613;}
-   60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #f00613;}
-   80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #f00613;}
-   100% {filter: none;}
+    0% {filter: none;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--red-bulb-color);}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--red-bulb-color);}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--red-bulb-color);}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--red-bulb-color);}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--red-bulb-color);}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--red-bulb-color);}
+    100% {filter: none;}
 }
 
 @keyframes filter-animation-pink {
-   0% {filter: none;}
-   20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #f405b6;}
-   40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #f405b6;}
-   45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #f405b6;}
-   55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #f405b6;}
-   60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #f405b6;}
-   80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #f405b6;}
-   100% {filter: none;}
+    0% {filter: none;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--pink-bulb-color);}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--pink-bulb-color);}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--pink-bulb-color);}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--pink-bulb-color);}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--pink-bulb-color);}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--pink-bulb-color);}
+    100% {filter: none;}
 }
 
 @keyframes filter-animation-blue {
     0% {filter: none;}
-    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #1055f1;}
-    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #1055f1;}
-    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #1055f1;}
-    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #1055f1;}
-    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #1055f1;}
-    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #1055f1;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--blue-bulb-color);}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--blue-bulb-color);}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--blue-bulb-color);}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--blue-bulb-color);}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--blue-bulb-color);}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--blue-bulb-color);}
     100% {filter: none;}
- }
+}
 
 @keyframes filter-animation-turquoise {
     0% {filter: none;}
-    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #09bffe;}
-    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #09bffe;}
-    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #09bffe;}
-    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #09bffe;}
-    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #09bffe;}
-    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #09bffe;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--turquoise-bulb-color);}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--turquoise-bulb-color);}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--turquoise-bulb-color);}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--turquoise-bulb-color);}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--turquoise-bulb-color);}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--turquoise-bulb-color);}
     100% {filter: none;}
- }
+}
 
- @keyframes filter-animation-mint {
-     0% {filter: none;}
-     20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #02de84;}
-     40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #02de84;}
-     45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #02de84;}
-     55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #02de84;}
-     60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #02de84;}
-     80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #02de84;}
-     100% {filter: none;}
-  }
+@keyframes filter-animation-mint {
+    0% {filter: none;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--mint-bulb-color);}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--mint-bulb-color);}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--mint-bulb-color);}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--mint-bulb-color);}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--mint-bulb-color);}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--mint-bulb-color);}
+    100% {filter: none;}
+}
 
-  @keyframes filter-animation-green {
-      0% {filter: none;}
-      20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #04d406;}
-      40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #04d406;}
-      45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #04d406;}
-      55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #04d406;}
-      60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #04d406;}
-      80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #04d406;}
-      100% {filter: none;}
-   }
+@keyframes filter-animation-green {
+    0% {filter: none;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--green-bulb-color);}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--green-bulb-color);}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--green-bulb-color);}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--green-bulb-color);}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--green-bulb-color);}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--green-bulb-color);}
+    100% {filter: none;}
+}
 
-   @keyframes filter-animation-yellow {
-       0% {filter: none;}
-       20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #fa7403;}
-       40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #fa7403;}
-       45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #fa7403;}
-       55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #fa7403;}
-       60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #fa7403;}
-       80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #fa7403;}
-       100% {filter: none;}
-    }
+@keyframes filter-animation-yellow {
+    0% {filter: none;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--yellow-bulb-color);}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--yellow-bulb-color);}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--yellow-bulb-color);}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--yellow-bulb-color);}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--yellow-bulb-color);}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--yellow-bulb-color);}
+    100% {filter: none;}
+}
 
-    @keyframes filter-animation-orange {
-        0% {filter: none;}
-        20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #fa7403;}
-        40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #fa7403;}
-        45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #fa7403;}
-        55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px #fa7403;}
-        60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px #fa7403;}
-        80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px #fa7403;}
-        100% {filter: none;}
-     }
+@keyframes filter-animation-orange {
+    0% {filter: none;}
+    20% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--orange-bulb-color);}
+    40% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--orange-bulb-color);}
+    45% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--orange-bulb-color);}
+    55% {filter: brightness(1.2) contrast(1.75) blur(2px); box-shadow: 0 0 0 3px var(--orange-bulb-color);}
+    60% {filter: brightness(1.15) contrast(1.75) blur(1px); box-shadow: 0 0 0 2px var(--orange-bulb-color);}
+    80% {filter: brightness(1.1) contrast(1.75) blur(0px); box-shadow: 0 0 0 1px var(--orange-bulb-color);}
+    100% {filter: none;}
+}
