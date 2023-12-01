@@ -14,14 +14,16 @@ export enum LightsActionType {
     TOGGLE_BLINKING ="toggleBlinking",
     SET_BLINKING_INTERVAL ="setBlinkingInterval",
     SET_ROWS_AMOUNT ="setRowsAmount",
-    SET_BULBS_SETTINGS ="setBulbsSettings",
+    SET_BULB_SIZE ="setBulbSize",
+    SET_BULB_COLOR ="setBulbColor",
 }
 
 export type LightsAction =
     | { type: typeof LightsActionType.TOGGLE_BLINKING }
     | { type: typeof LightsActionType.SET_BLINKING_INTERVAL; value: State["blinkInterval"] }
     | { type: typeof LightsActionType.SET_ROWS_AMOUNT; value: State["rowsAmount"] }
-    | { type: typeof LightsActionType.SET_BULBS_SETTINGS; value: State["bulbsSettings"] }
+    | { type: typeof LightsActionType.SET_BULB_SIZE; value: {bulbIndex: number, size: BulbSettings[0]} }
+    | { type: typeof LightsActionType.SET_BULB_COLOR; value: {bulbIndex: number, color: BulbSettings[1]} }
 
 export enum Colors {
     RED="red",

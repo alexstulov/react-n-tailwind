@@ -1,19 +1,19 @@
 import React, { useState } from "react"
-import { LightsAction, LightsActionType, State, colors, defaultSize } from "./types";
+import { LightsAction, LightsActionType, State, colors } from "./types";
 
 const LightsManagementForm = ({state, dispatch}: {state: State, dispatch: React.Dispatch<LightsAction>}) => {
-  const blinkIntervalLimits = [1,5];
+  const [minBlinkInterval, maxBlinkInterval] = [1,5];
   const [selectedBulb, setSelectedBulb] = useState(0);
   
   const handleBlinkIntervalChange = (event: React.FormEvent<HTMLInputElement>) => {
     let newValue = parseInt(event.currentTarget.value);
     if (typeof newValue !== "number" || Number.isNaN(newValue)) {
-      newValue = 2;
+      newValue = state.blinkInterval;
     }
-    if (newValue > blinkIntervalLimits[1]) {
-      newValue = blinkIntervalLimits[1];
-    } else if (newValue < blinkIntervalLimits[0]) {
-      newValue = blinkIntervalLimits[0];
+    if (newValue > maxBlinkInterval) {
+      newValue = maxBlinkInterval;
+    } else if (newValue < minBlinkInterval) {
+      newValue = minBlinkInterval;
     }
     dispatch({
       type: LightsActionType.SET_BLINKING_INTERVAL,
@@ -23,25 +23,17 @@ const LightsManagementForm = ({state, dispatch}: {state: State, dispatch: React.
   
   const handleSelectBulbChange = (event: React.FormEvent<HTMLSelectElement>) => setSelectedBulb(parseInt(event?.currentTarget.value));
   const handleSelectColorChange = (event: React.FormEvent<HTMLSelectElement>) => {
-    const newSize = event.currentTarget.value;
-    const newSettings = [...state.bulbsSettings];
-    const currentBulb = newSettings[selectedBulb];
-    const newValue = newSize ? newSize : currentBulb[1];
-    newSettings[selectedBulb] = [currentBulb[0], newValue];
+    const newColor = event.currentTarget.value;
     dispatch({
-      type: LightsActionType.SET_BULBS_SETTINGS,
-      value: newSettings
+      type: LightsActionType.SET_BULB_COLOR,
+      value: {bulbIndex: selectedBulb, color: newColor}
     });
   }
   const handleSizeChange = (event: React.FormEvent<HTMLInputElement>) => {
     const newSize = event.currentTarget.value;
-    const newSettings = [...state.bulbsSettings];
-    const currentBulb = newSettings[selectedBulb];
-    const newValue = newSize ? `${newSize}px` : defaultSize;
-    newSettings[selectedBulb] = [newValue, currentBulb[1]];
     dispatch({
-      type: LightsActionType.SET_BULBS_SETTINGS,
-      value: newSettings
+      type: LightsActionType.SET_BULB_SIZE,
+      value: {bulbIndex: selectedBulb, size: newSize}
     });
   }
   const handleRowsAmountChange = (event: React.FormEvent<HTMLSelectElement>) => {
@@ -59,7 +51,6 @@ const LightsManagementForm = ({state, dispatch}: {state: State, dispatch: React.
   }
   
   return <>
-    <h1>Christmas Lights</h1>
     <h2>Manage lights behavior</h2>
     <div className="form-control w-full">
       <label className="label cursor-pointer w-52" htmlFor="toggle-blinking">
@@ -75,17 +66,16 @@ const LightsManagementForm = ({state, dispatch}: {state: State, dispatch: React.
     </div>
     <div className="form-control w-full">
       <label className="label" htmlFor="blink-interval">
-        <span className="label-text">Blink interval ({blinkIntervalLimits[0]}-{blinkIntervalLimits[1]}), s.</span>
+        <span className="label-text">Blink interval ({minBlinkInterval}-{maxBlinkInterval}), s.</span>
       </label>
       <input
         type="number"
-        placeholder="Type here"
         name="blink-interval"
         className="input input-bordered w-full max-w-xs"
         value={state.blinkInterval}
         onChange={handleBlinkIntervalChange}
-        min={blinkIntervalLimits[0]}
-        max={blinkIntervalLimits[1]}
+        min={minBlinkInterval}
+        max={maxBlinkInterval}
       />
     </div>
     <label className="form-control w-full max-w-xs">
@@ -96,7 +86,7 @@ const LightsManagementForm = ({state, dispatch}: {state: State, dispatch: React.
         {[...Array(7)].map((_, rowsAmountOption) => <option key={rowsAmountOption} value={rowsAmountOption}>{rowsAmountOption}</option>)}
       </select>
     </label>
-    <div className="container md:columns-3">
+    <div className="container border-2 border-solid border-secondary mt-2 p-2 max-w-xs md:columns-3 md:max-w-none">
       <label className="form-control w-full max-w-xs">
         <div className="label">
           <span className="label-text">Pick a bulb</span>
@@ -107,17 +97,17 @@ const LightsManagementForm = ({state, dispatch}: {state: State, dispatch: React.
       </label>
       <label className="form-control w-full max-w-xs">
         <div className="label">
-          <span className="label-text">Bulb size</span>
-        </div>
-        <input type="range" min="10" max="50" value={parseInt(state.bulbsSettings[selectedBulb][0])} className="range" onChange={handleSizeChange} />
-      </label>
-      <label className="form-control w-full max-w-xs">
-        <div className="label">
           <span className="label-text">Bulb color</span>
         </div>
         <select className="select select-bordered w-full max-w-xs" value={state.bulbsSettings[selectedBulb][1]} onChange={handleSelectColorChange}>
           {colors.map(optionColor => <option key={optionColor} value={optionColor}>{optionColor}</option>)}
         </select>
+      </label>
+      <label className="form-control w-full max-w-xs">
+        <div className="label">
+          <span className="label-text">Bulb size</span>
+        </div>
+        <input type="range" min="10" max="50" value={parseInt(state.bulbsSettings[selectedBulb][0])} className="range" onChange={handleSizeChange} />
       </label>
     </div>
   </>;

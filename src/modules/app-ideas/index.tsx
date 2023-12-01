@@ -6,7 +6,7 @@ import BorderRadiusPreviewer from "./BorderRadiusPreviewer"
 import { Provider } from "react-redux";
 import store from "./store"
 import Calculator from "./calculator";
-import {ChristmasLights} from "./christmasLights";
+import {ChristmasLights} from "./christmas-lights";
 
 const AppIdeas = () => {
   const location = useLocation()
